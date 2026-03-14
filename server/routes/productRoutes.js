@@ -9,7 +9,6 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
-  buyProduct
 } from "../controllers/productController.js";
 
 const router = express.Router();
@@ -41,27 +40,16 @@ router.delete(
 );
 
 
-// USER PRODUCT ROUTES
+// MENU ROUTES (ADMIN + USER)
 
 router.get(
   "/products",
-  authMiddleware,
-  roleMiddleware("user"),
   getAllProducts
 );
 
 router.get(
   "/products/:id",
-  authMiddleware,
-  roleMiddleware("user"),
   getProductById
-);
-
-router.post(
-  "/products/:id/buy",
-  authMiddleware,
-  roleMiddleware("user"),
-  buyProduct
 );
 
 export default router;

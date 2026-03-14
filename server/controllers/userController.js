@@ -1,5 +1,4 @@
 import User from "../models/User.js";
-import Product from "../models/Product.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import fs from "fs";
@@ -20,7 +19,7 @@ console.log("user registration", req.body);
     if (!mobile || !password) {
 
       if (req.file) {
-        const filePath = `uploads/${req.file.filename}`;
+        const filePath = `uploads/users/${req.file.filename}`;
         if (fs.existsSync(filePath)) {
           await fs.promises.unlink(filePath);
         }
@@ -50,7 +49,7 @@ console.log("user registration", req.body);
   } catch (err) {
 
     if (req.file) {
-      const filePath = `uploads/${req.file.filename}`;
+      const filePath = `uploads/users/${req.file.filename}`;
       if (fs.existsSync(filePath)) {
         await fs.promises.unlink(filePath);
       }
@@ -130,8 +129,6 @@ export const loginUser = async (req, res) => {
 
 };
 
-
-
 // GET USER BY ID (ONLY THEIR OWN ACCOUNT)
 export const getUserById = async (req, res) => {
 
@@ -181,7 +178,7 @@ export const updateUser = async (req, res) => {
     if (!user) {
 
       if (req.file) {
-        const filePath = `uploads/${req.file.filename}`;
+        const filePath = `uploads/users/${req.file.filename}`;
         if (fs.existsSync(filePath)) {
           await fs.promises.unlink(filePath);
         }
@@ -224,7 +221,7 @@ export const updateUser = async (req, res) => {
   } catch (err) {
 
     if (req.file) {
-      const filePath = `uploads/${req.file.filename}`;
+      const filePath = `uploads/users/${req.file.filename}`;
       if (fs.existsSync(filePath)) {
         await fs.promises.unlink(filePath);
       }
@@ -280,27 +277,6 @@ export const deleteUser = async (req, res) => {
     res.json({
       status: "User deleted successfully"
     });
-
-  } catch (err) {
-
-    res.status(500).json({
-      error: err.message
-    });
-
-  }
-
-};
-
-
-
-// GET ALL PRODUCTS (FOR USERS)
-export const getAllProducts = async (req, res) => {
-
-  try {
-
-    const products = await Product.find();
-
-    res.json(products);
 
   } catch (err) {
 
